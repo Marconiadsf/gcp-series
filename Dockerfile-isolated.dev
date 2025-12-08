@@ -11,7 +11,7 @@ WORKDIR /workspace
 
 # Copiar dependências
 COPY requirements.txt .
-COPY Dockerfile .
+
 
 RUN pip install --no-cache-dir -r requirements.txt
 
