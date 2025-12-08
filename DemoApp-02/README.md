@@ -9,12 +9,12 @@ to run the demo applications, including installing Docker, VSCode, git (optional
 
 ## Table of Contents
 * [1. Understanding the Application](#1-understanding-the-application)
-    * [1.1 File Structure](#11-file-structure)
+  * [1.1 File Structure](#11-file-structure)
 * [2. Building and Running the Application Locally](#2-building-and-running-the-application-locally)
 * [3. Deploying to Google Cloud Run](#3-deploying-to-google-cloud-run)
-    * [3.1 Setting Up Environment Variables](#31-setting-up-environment-variables)
-    * [3.2 Deploying the GCP Project](#32-deploying-the-gcp-project)
-    * [3.3 Cleaning Up](#33-cleaning-up)
+  * [3.1 Setting Up Environment Variables](#31-setting-up-environment-variables)
+  * [3.2 Deploying the GCP Project](#32-deploying-the-gcp-project)
+  * [3.3 Cleaning Up](#33-cleaning-up)
 * [Notes](#notes)
 * [References](#references)
 
