@@ -4,7 +4,7 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 
 ## Prerequisites
 
-**Follow README.md in the root directory for setting up your environment: This will give you the necessary enviroinment
+**Follow README.md in the root directory for setting up your environment: This will give you the necessary environment
 to run the demo applications, including installing Docker, VSCode, git (optional), and setting up the development container.**
 
 
@@ -21,15 +21,15 @@ The demo application is a simple **Gradio** example that creates a web interface
 
 		
 ### 2. Building and Running the Application Locally
-In the dev container terminal, navigate to the DemoApp-02 directory:
-		```
-		cd DemoApp-02
-		```
+In the dev container terminal, navigate to the DemoApp-02/src directory:
+```
+cd DemoApp-02/src
+```
 The dev container built with the Dockerfile.dev already has the dependencies installed from requirements.txt.
 You can run the application directly using Python:
-		```
-		python app.py
-		```
+```
+python app.py
+```
 This will start the gradio application, and you should see output indicating that the server is running, along with a 
 local URL (e.g., `http://127.0.0.1:8080`). You can open this URL in your web browser to interact with the application.
 
@@ -37,10 +37,10 @@ local URL (e.g., `http://127.0.0.1:8080`). You can open this URL in your web bro
 
 ### 3.1 Setting Up Environment Variables
 
-1.  **Move back to the DemoApp-01 folder:**
-    ```bash
-    cd ..
-    ```
+1.  **Move back to the DemoApp-02 folder:**
+```bash
+cd ..
+```
 
 2.  **Create your config file:**
     Copy the template to a new file named `env_vars.sh` (this file is git-ignored to prevent leaking secrets).
@@ -55,16 +55,15 @@ local URL (e.g., `http://127.0.0.1:8080`). You can open this URL in your web bro
 
 #### 3.2 Deploying the GCP Project
 		
-This time we packed all the deplyment workflow into a script.
+This time we packed all the deployment workflow into a script.
 Make sure you are in the DemoApp-02 directory.
 List your billing information and keep it in hand, when the script asks for it.
 
 Then run:
 
-		```
-		./deploy_to_gcp.sh
-		
-		```
+```
+./deploy_to_cloud.sh
+```
 
 The script will source the env_vars.sh file to get the necessary environment variables and then proceed to create the GCP project,
 enable required APIs, ask for billing account and finally deploy the application to Cloud Run.
@@ -82,14 +81,14 @@ Congratulations! You have successfully deployed the DemoApp-02 application to Go
 #### 3.3 Cleaning Up
 Before jumping into the next DemoApp you may want to to delete all the resources created in this DemoApp-02:
 
-		```
-		./deploy_to_cloud.sh clean
-		```
+```bash
+./deploy_to_cloud.sh clean
+```
 This will delete the Cloud Run service and the GCP project created for this demo.
 
 ## Notes
 
->As the standart Gradio examples and my tries to deploy from Google Console had failed, the setup and deployment process is heavly 
+>As the standard Gradio examples and my tries to deploy from Google Console had failed, the setup and deployment process is heavily 
 based on the following Google Cloud CLI tutorial.
 
 >The gcloud run deploy --source . seems to rely on .gitignore file to avoid copying unwanted files to the 
