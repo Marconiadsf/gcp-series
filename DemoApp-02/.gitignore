@@ -1,0 +1,15 @@
+
+# Secrets and accounts files
+env_vars.sh
+
+# Environment  and virtual environment folders and files
+*.env
+.env.*
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/

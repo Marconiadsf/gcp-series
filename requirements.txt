@@ -1,0 +1,6 @@
+gradio
+langchain
+pydantic
+python-dotenv
+sqlalchemy
+psycopg2-binary   # se usar Postgres
