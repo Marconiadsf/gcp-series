@@ -105,7 +105,7 @@ This will delete the Cloud Run service and the GCP project created for this demo
 based on the following Google Cloud CLI tutorial.
 
 >The gcloud run deploy --source . seems to rely on .gitignore file to avoid copying unwanted files to the 
-deployment package (but not .dockerignore :-( ).
+deployment package (but not .dockerignore 😞).
 
 ## References
 
