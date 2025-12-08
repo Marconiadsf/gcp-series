@@ -76,7 +76,7 @@ If you kept it only inside the container, you can open the folder in VSCode usin
 
 Click in "Remote-Containers" icon in the left sidebar
 Search for the just created container and click "Attach in New Window"
-The new windows may have /workspace as the current workspace.
+The new window may have /workspace as the current workspace.
 You can also set it manually by going to File -> Open Folder and selecting /workspace
 In the menu select the folder you want to open, within the container, e.g., /workspace.
 		
