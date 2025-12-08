@@ -69,10 +69,9 @@ cp env_variables_model.sh env_vars.sh
 		
 This time we packed all the deployment workflow into a script.
 Make sure you are in the DemoApp-02 directory.
-> List your billing information and keep it on hand, as the script will ask for it.
-> You can list with the command:
+> Tip: List your billing accounts and keep the Billing Account ID on hand, as the script will ask for it. You can list them with:
 > ```bash
-> gcloud beta billing projects accounts list
+> gcloud beta billing accounts list
 > ```
 
 1.  **Make the script executable:**
@@ -89,9 +88,9 @@ The script will source the env_vars.sh file to get the necessary environment var
 enable required APIs, ask for billing account and finally deploy the application to Cloud Run.
 You should see output in the terminal indicating the progress of each step.
 
-You may be required to answer some prompts after this command, to set some things like:
-- additional APIs: answer y if prompted
-- public access: answer y to allow unauthenticated invocations (recommended for this demo purpose) 
+You may be required to answer some prompts after this command, such as:
+- Additional APIs: answer y if prompted.
+- Public access: answer y to allow unauthenticated invocations (recommended for this demo purpose).
 
 After the deployment is complete, you will see a URL where your application is hosted. You can open this URL 
 in your web browser to access the deployed application.
