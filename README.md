@@ -18,18 +18,17 @@ Use VSCode to start a new terminal:
 	
 - Create a new folder for this repository and navigate into it:
 	- Windows/Linux:
-		```
-		mkdir gcp-series
-		cd gcp-series
-  
-		``` 
+```
+mkdir gcp-series
+cd gcp-series
+``` 
 	
 If you have Git installed, you can clone this repository using Git:
 	
-		```
-			git clone https://github.com/Marconiadsf/gcpseries.git
-			
-		```
+```
+git clone https://github.com/Marconiadsf/gcpseries.git
+```
+
 If you don't want to install Git, you can also download the repository as a ZIP file and extract it.
 Unzip the file into the gcp-series folder you created above.
 Now cd into the gcp-series folder for the unzipped files:
@@ -37,7 +36,8 @@ Now cd into the gcp-series folder for the unzipped files:
 	cd gcp-series
 	````
 Check the folder structure to verify the files are there:
-	```ls
+	```
+	ls
 	```
 You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
 
@@ -110,7 +110,7 @@ Now cd into the gcp-series folder for the cloned files:
 
 			```
 			cd gcp-series
-			````
+			```
 			
 Show the folder structure to verify the files are there:
 			```
