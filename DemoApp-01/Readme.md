@@ -98,13 +98,15 @@ Set the project as the default for commands
 gcloud config set project $GCP_PROJECT_ID
 ```
 3.  **Link Billing (If required):**
-```bash
-gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=<your-billing-id>
-```
+
 > **Tip:** You can list your available billing accounts to find the ID:
 > ```bash
 > gcloud beta billing accounts list
 > ```
+
+```bash
+gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=<your-billing-id>
+```
 
 ### 3.3 Fixing IAM Permissions
 
