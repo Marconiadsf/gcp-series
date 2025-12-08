@@ -38,12 +38,12 @@ You should see output indicating the server is running at `http://127.0.0.1:8080
 
 ### 3.1 Setting Up Environment Variables
 
-Move back to the DemoApp-01 folder with:
-   ```bash
-   cd ..
-   ```
-
-1.  **Create your config file:**
+1. **Move back to the DemoApp-01 folder with:**
+   
+      ```bash
+      cd ..
+      ```
+2.  **Create your config file:**
     Copy the template to a new file named `env_vars.sh` (this file is git-ignored to prevent leaking secrets).
     
     ```bash
