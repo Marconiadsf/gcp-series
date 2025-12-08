@@ -14,10 +14,10 @@ The demo application is a simple gradio example that creates a web interface for
 It uses the gradio library to create the web interface and handle file uploads.
 The main application code is in the `app.py` file.
 #### 1.1 File structure
-- `src/`: This directory contains the source code for the demo application.
-- Inside the `src/` directory, you will find:
-- `app.py`: The main application code that defines the gradio interface.
-- `requirements.txt`: Lists the Python dependencies required for the application.
+- `src/`: This directory contains the source code for the demo application, that are:
+	- `app.py`: The main application code that defines the gradio interface.
+	- `requirements.txt`: Lists the Python dependencies required for the application.
+ - 
 - `.gitignore`: Specifies files and directories to be ignored by git (if using version control).
 - `env_variables_model.sh`: A template shell script to set environment variables for GCP deployment.
 - `README.mkd`: This file you are reading now, which provides instructions on how to run and deploy the application.
