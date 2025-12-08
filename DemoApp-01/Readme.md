@@ -102,9 +102,9 @@ gcloud config set project $GCP_PROJECT_ID
 gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=<your-billing-id>
 ```
 > **Tip:** You can list your available billing accounts to find the ID:
-    > ```bash
-    > gcloud beta billing accounts list
-    > ```
+> ```bash
+> gcloud beta billing accounts list
+> ```
 
 ### 3.3 Fixing IAM Permissions
 
