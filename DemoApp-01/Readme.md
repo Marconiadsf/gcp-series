@@ -1,6 +1,6 @@
-# DemoApp-01: Local Deployment Example
+# DemoApp-01: Manual Deployment with gcloud CLI
 
-This is a simple demo application illustrating how to deploy a local Python app to Google Cloud Run using the `gcloud` command-line tool.
+This demo illustrates the fundamental workflow for deploying a local Python application to Google Cloud Run using the `gcloud` command-line interface.
 
 ## Prerequisites
 
@@ -101,6 +101,10 @@ gcloud config set project $GCP_PROJECT_ID
 ```bash
 gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=<your-billing-id>
 ```
+> **Tip:** You can list your available billing accounts to find the ID:
+    > ```bash
+    > gcloud beta billing accounts list
+    > ```
 
 ### 3.3 Fixing IAM Permissions
 
