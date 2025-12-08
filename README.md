@@ -26,7 +26,7 @@ Use VSCode to start a new terminal:
 If you have Git installed, you can clone this repository using Git:
 	
 	```
-	Git clone https://Github.com/Marconiadsf/gcpseries.Git
+	git clone https://github.com/Marconiadsf/gcpseries.git
 	```
 If you don't want to install Git, you can also download the repository as a ZIP file and extract it.
 Unzip the file into the gcp-series folder you created above.
@@ -88,9 +88,9 @@ host files.
 		
 You can:
 		
-#### 1. copy the files from your host to the container using docker cp command:
+#### 1. Copy the files from your host to the container using docker cp command:
 Open a new terminal in your host machine (not inside the container) and navigate to the gcp-series folder you created before.
-Type the command:
+Run the command:
 			```
 			docker cp DemoApp-01 <container_id>:/workspace/DemoApp-01
 			docker cp DemoApp-02 <container_id>:/workspace/DemoApp-02
@@ -101,7 +101,7 @@ After copying the folders, go back to the container terminal and type ls again. 
 #### 2. Use Git inside the container to clone the repository again:
 			
 			```
-			Git clone https://Github.com/Marconiadsf/gcp-series.Git
+			git clone https://github.com/Marconiadsf/gcp-series.git
 			```
 			
 Now cd into the gcp-series folder for the cloned files:
