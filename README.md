@@ -54,7 +54,7 @@ In the Terminal run:
 docker build -f Dockerfile.dev -t gcp-series-dev-container .
 ```
 
-This will build the development container image with Python 3.10-slim, Git, gcloud SDK, and other tools, copy
+This will build the development container image with Python 3.10-slim, Git, GCloud SDK, and other tools, copy
 the requirements.txt file, and install the required Python packages.
 After the build is complete, you can run the container.
 
@@ -91,7 +91,7 @@ host files.
 		
 You can:
 		
-#### 1. Copy the files from your host to the container using docker cp command:
+#### 1. Copy the files from your host to the container using Docker cp command:
 Open a new terminal in your host machine (not inside the container) and navigate to the gcp-series folder you created before.
 Run the command:
 
