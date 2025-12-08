@@ -52,13 +52,12 @@ local URL (e.g., `http://127.0.0.1:8080`). You can open this URL in your web bro
     Open `env_vars.sh` and fill in your specific Google Cloud details. You typically only need to change:
     * `GCP_PROJECT_ID`
     * `GCP_PROJECT_REGION`
-    * `GCP_BILLING_ACCOUNT_ID`
 
 #### 3.2 Deploying the GCP Project
 		
 This time we packed all the deplyment workflow into a script.
 Make sure you are in the DemoApp-02 directory.
-List your billing information and keep it in hand, qhen the script asks for it.
+List your billing information and keep it in hand, when the script asks for it.
 
 Then run:
 
