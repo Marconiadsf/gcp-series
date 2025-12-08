@@ -1,4 +1,4 @@
 .gitignore
 .env_variables_model.sh
 .env_vars.sh
-README.mk
+README.md
