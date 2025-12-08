@@ -28,7 +28,7 @@ If you have git installed, you can clone this repository using git:
 	```
 	git clone https://github.com/Marconiadsf/gcpseries.git
 	```
-If you dont want to install git, you can also download the repository as a ZIP file and extract it.
+If you don't want to install git, you can also download the repository as a ZIP file and extract it.
 Unzip the file into the gcp-series folder you created above.
 Now cd into the gcp-series folder for the unzipped files:
 	```
@@ -60,7 +60,7 @@ For local testing and development, you can run the container interactively, mapp
 
 	```
 	
-If you dont want to map the folders and keep it only inside the container (but you need Dockerfile.dev and requirements.txt 
+If you don't want to map the folders and keep it only inside the container (but you need Dockerfile.dev and requirements.txt 
 beforehand), you can just run:
 
 	```
@@ -72,7 +72,7 @@ If you mapped folders of container to host you can open the folder in VSCode dir
 Keep the terminal open after running the container, you are now inside the container.
 If you type ls you may see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
 
-If you kepet it only inside the container, you can open the folder in VSCode using the "Remote - Containers" extension:
+If you kept it only inside the container, you can open the folder in VSCode using the "Remote - Containers" extension:
 
 Click in "Remote-Containers" icon in the left sidebar
 Search for the just created container and click "Attach in New Window"
@@ -116,5 +116,5 @@ Show the folder structure to verify the files are there:
 			```
 You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
 	
-Either way, you can now navigate to each demo application folder and follow the specific instructions in their README.mkd files.
+Either way, you can now navigate to each demo application folder and follow the specific instructions in their README.md files.
 
