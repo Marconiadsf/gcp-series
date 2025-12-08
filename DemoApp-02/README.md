@@ -72,7 +72,7 @@ Make sure you are in the DemoApp-02 directory.
 > List your billing information and keep it on hand, as the script will ask for it.
 > You can list with the command:
 > ```bash
-> gcloud beta billing projects describe PROJECT_ID
+> gcloud beta billing projects accounts list
 > ```
 
 1.  **Make the script executable:**
