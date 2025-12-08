@@ -9,11 +9,11 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 
 ## Running the Demo Application
 
-	### 1. Understanding the Application
-		The demo application is a simple gradio example that creates a web interface for sending audio files.
-		It uses the gradio library to create the web interface and handle file uploads.
-		The main application code is in the `app.py` file.
-		#### 1.1 File structure
+### 1. Understanding the Application
+	The demo application is a simple gradio example that creates a web interface for sending audio files.
+It uses the gradio library to create the web interface and handle file uploads.
+The main application code is in the `app.py` file.
+#### 1.1 File structure
 		- `src/`: This directory contains the source code for the demo application.
 			- Inside the `src/` directory, you will find:
 				- `app.py`: The main application code that defines the gradio interface.
@@ -24,7 +24,7 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 		
 		You can run the applycation locally in the dev container or deploy it to Google Cloud Run.
 
-	### 2. Building and Running the Application Locally
+### 2. Building and Running the Application Locally
 		In the dev container terminal, navigate to the DemoApp-01 directory:
 		```
 		cd DemoApp-01
@@ -37,9 +37,8 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 		This will start the gradio application, and you should see output indicating that the server is running, along with a 
 		local URL (e.g., `http://127.0.0.1:8080`). You can open this URL in your web browser to interact with the application.
 
-	### 3. Deploying to Google Cloud Run
-
-	#### 3.1 Setting Up Environment Variables
+### 3. Deploying to Google Cloud Run
+#### 3.1 Setting Up Environment Variables
 		To deploy the application to Google Cloud Run, follow these steps:
 		Make a copy of env_variables_model.sh naming it env_vars.sh:
 		```
@@ -79,7 +78,7 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 		```
 		source env_vars.sh
 		```
-	#### 3.2 Setting Up Google Cloud SDK
+#### 3.2 Setting Up Google Cloud SDK
 		Make sure you are logged in to your Google Cloud account using the gcloud CLI:
 		```
 		gcloud auth login
@@ -108,20 +107,20 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 
 		```
 
-	#### 3.3 Enabling Required APIs
+#### 3.3 Enabling Required APIs
 
 		Enable the necessary APIs for Cloud Run and Artifact Registry:
 		```
 			gcloud services enable run.googleapis.com cloudbuild.googleapis.com
 		```
 
-	#### 3.4 Granting Permissions to the Cloud Build Service Account
+#### 3.4 Granting Permissions to the Cloud Build Service Account
 	
 	<todo: replace SERVICE_ACCOUNT_EMAIL_ADDRESS with the actual service account email address.>
 	<explain how to find it if needed.>
 	<explain why/when this is needed.>	
 
-	#### 3.5 Deploying the Application
+#### 3.5 Deploying the Application
 
 		From the DemoApp-01 directory, cd into src folder:
 		```
@@ -144,7 +143,7 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 
 		Congratulations! You have successfully deployed the DemoApp-01 application to Google Cloud Run.
 
-	#### 3.6 Cleaning Up
+#### 3.6 Cleaning Up
 
 		Before jumping into the next DemoApp you may want to to delete all the resources created in this DemoApp-01:
 
