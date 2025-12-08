@@ -79,7 +79,7 @@ Ensure your CLI is authenticated and pointing to the right project.
     ```
 3.  **Link Billing (If required):**
     ```bash
-    gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=$GCP_BILLING_ACCOUNT_ID
+    gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=<your-billing-id>
     ```
 
 ### 3.3 Fixing IAM Permissions
