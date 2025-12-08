@@ -16,6 +16,7 @@ The demo application is a simple **Gradio** example that creates a web interface
 * `src/`: Contains the source code.
     * `app.py`: The main application code defining the Gradio interface.
     * `requirements.txt`: Python dependencies.
+* `deploy_to_cloud.sh`: The main automation script for deployment and cleanup.
 * `env_variables_model.sh`: A template script to set environment variables for GCP deployment.
 * `.gitignore`: Specifies files ignored by git (critical for security).
 
@@ -38,15 +39,17 @@ local URL (e.g., `http://127.0.0.1:8080`). You can open this URL in your web bro
 ### 3.1 Setting Up Environment Variables
 
 1.  **Move back to the DemoApp-02 folder:**
+   
 ```bash
 cd ..
 ```
 
 2.  **Create your config file:**
     Copy the template to a new file named `env_vars.sh` (this file is git-ignored to prevent leaking secrets).
-    ```bash
-    cp env_variables_model.sh env_vars.sh
-    ```
+
+```bash
+cp env_variables_model.sh env_vars.sh
+```
 
 3.  **Edit the file:**
     Open `env_vars.sh` and fill in your specific Google Cloud details. You typically only need to change:
@@ -69,7 +72,7 @@ The script will source the env_vars.sh file to get the necessary environment var
 enable required APIs, ask for billing account and finally deploy the application to Cloud Run.
 You should see output in the terminal indicating the progress of each step.
 
-It may require to answer some prompts after this command, to set some things like:
+You may be required to answer some prompts after this command, to set some things like:
 - additional APIs: answer y if prompted
 - public access: answer y to allow unauthenticated invocations (recommended for this demo purpose) 
 
@@ -79,7 +82,7 @@ in your web browser to access the deployed application.
 Congratulations! You have successfully deployed the DemoApp-02 application to Google Cloud Run.
 
 #### 3.3 Cleaning Up
-Before jumping into the next DemoApp you may want to to delete all the resources created in this DemoApp-02:
+Before jumping into the next DemoApp you may want to delete all the resources created in this DemoApp-02:
 
 ```bash
 ./deploy_to_cloud.sh clean
