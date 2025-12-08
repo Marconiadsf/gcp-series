@@ -115,7 +115,7 @@ This will delete the Cloud Run service and the GCP project created for this demo
 
 - As the standart Gradio examples and my tries to deploy from Google Console had failed, the setup and deployment process is heavly 
 based on the following Google Cloud CLI tutorial:
-- [Quickstart: Build and deploy a Python (Gradio) web app to Cloud Run] (https://docs.cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-python-gradio-service?hl=pt-br#local-shell)
+	-- [Quickstart: Build and deploy a Python (Gradio) web app to Cloud Run] (https://docs.cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-python-gradio-service?hl=pt-br#local-shell)
 
 - Next DemoApp-02 we will make some improovements to the deployment enviroinment using all variables set in env_vars.sh file.
 - As a matter of information, the gcloud run deploy --source . seems to rely on .gitignore file to avoid copying unwanted files to the 
