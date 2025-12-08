@@ -50,7 +50,7 @@ You can choose between two workflows. **Option B** is generally easier for quick
 #### Option B: The "Isolated" Workflow (No Git Required Locally)
 *Best for: Quick tests without installing Git on your host.*
 
-1.  **Download the Dockerfile:** Download **only** the `Dockerfile-isolated.dev` (previously `Dockerfile2.dev`) from the repo and place it in your `gcp-series` folder.
+1.  **Download the Dockerfile:** Download **only** the [Dockerfile-isolated.dev](Dockerfile-isolated.dev) from the repo and place it in your `gcp-series` folder.
 2.  **Inspect the file:** Check the file content to understand what tools are being installed.
 3.  **Build the container:**
     ```bash
