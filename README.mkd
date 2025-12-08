@@ -110,12 +110,16 @@ After copying the folders, go back to the container terminal and type ls again. 
 			```
 			git clone https://github.com/Marconiadsf/gcp-series.git
 			```
+			
 Now cd into the gcp-series folder for the cloned files:
+
 			```
 			cd gcp-series
 			````
+			
 Show the folder structure to verify the files are there:
-			```ls
+			```
+			ls
 			```
 You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
 	
