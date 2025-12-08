@@ -4,8 +4,8 @@ This repository contains a series of experiments and demo applications to explor
 
 ## Description of Demo Applications
 
-1. [DemoApp-01: Local deployment example](/DemoApp-01): This is a simple demo application that demonstrates local deployment to Google Cloud Run using the `gcloud` command-line tool.
-2. [DemoApp-02: Local deployment with script-based automation](/DemoApp-02): This demo application shows how to use scripts to automate the deployment process.
+- [DemoApp-01: Local deployment example](/DemoApp-01): This is a simple demo application that demonstrates local deployment to Google Cloud Run using the `gcloud` command-line tool.
+- [DemoApp-02: Local deployment with script-based automation](/DemoApp-02): This demo application shows how to use scripts to automate the deployment process.
 
 ## How to Use This Repository
 Each demo application is contained in its own folder (e.g., DemoApp-01, DemoApp-02).
