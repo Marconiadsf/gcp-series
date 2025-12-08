@@ -46,7 +46,7 @@ You can choose between two workflows. **Option B** is generally easier for quick
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/Marconiadsf/gcp-series.git](https://github.com/Marconiadsf/gcp-series.git)
+    git clone https://github.com/Marconiadsf/gcp-series.git
     cd gcp-series
     ```
 2.  **Verify files:** Run `ls` (or `dir` on Windows) to ensure `Dockerfile.dev` is present.
