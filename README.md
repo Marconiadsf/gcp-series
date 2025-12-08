@@ -21,12 +21,14 @@ Use VSCode to start a new terminal:
 		```
 		mkdir gcp-series
 		cd gcp-series
+  
 		``` 
 	
 If you have Git installed, you can clone this repository using Git:
 	
 		```
-		git clone https://github.com/Marconiadsf/gcpseries.git
+			git clone https://github.com/Marconiadsf/gcpseries.git
+			
 		```
 If you don't want to install Git, you can also download the repository as a ZIP file and extract it.
 Unzip the file into the gcp-series folder you created above.
