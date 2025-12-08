@@ -8,7 +8,7 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 to run the demo applications, including installing Docker, VSCode, git (optional), and setting up the development container.**
 
 
-### 1. Understanding the Application
+## 1. Understanding the Application
 The demo application is a simple **Gradio** example that creates a web interface for uploading audio files. It uses the Gradio library to handle the UI and file processing.
 
 ### 1.1 File Structure
@@ -21,20 +21,20 @@ The demo application is a simple **Gradio** example that creates a web interface
 * `.gitignore`: Specifies files ignored by git (critical for security).
 
 		
-### 2. Building and Running the Application Locally
+## 2. Building and Running the Application Locally
 In the dev container terminal, navigate to the DemoApp-02/src directory:
-```
+```bash
 cd DemoApp-02/src
 ```
 The dev container built with the Dockerfile.dev already has the dependencies installed from requirements.txt.
 You can run the application directly using Python:
-```
+```bash
 python app.py
 ```
 This will start the gradio application, and you should see output indicating that the server is running, along with a 
 local URL (e.g., `http://127.0.0.1:8080`). You can open this URL in your web browser to interact with the application.
 
-### 3. Deploying to Google Cloud Run
+## 3. Deploying to Google Cloud Run
 
 ### 3.1 Setting Up Environment Variables
 
@@ -56,7 +56,7 @@ cp env_variables_model.sh env_vars.sh
     * `GCP_PROJECT_ID`
     * `GCP_PROJECT_REGION`
 
-#### 3.2 Deploying the GCP Project
+### 3.2 Deploying the GCP Project
 		
 This time we packed all the deployment workflow into a script.
 Make sure you are in the DemoApp-02 directory.
@@ -64,7 +64,7 @@ List your billing information and keep it in hand, when the script asks for it.
 
 Then run:
 
-```
+```bash
 ./deploy_to_cloud.sh
 ```
 
@@ -81,7 +81,7 @@ in your web browser to access the deployed application.
 
 Congratulations! You have successfully deployed the DemoApp-02 application to Google Cloud Run.
 
-#### 3.3 Cleaning Up
+### 3.3 Cleaning Up
 Before jumping into the next DemoApp you may want to delete all the resources created in this DemoApp-02:
 
 ```bash
