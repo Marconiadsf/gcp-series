@@ -43,12 +43,12 @@ Check the folder structure to verify the files are there:
 ls
 ```
 
-You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
+You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt.
 Dockerfile.dev is used to create a development container with all the necessary tools installed.
-Make sure Docker is running on your machine.
+> ⚠️ Make sure Docker is running on your machine.
 Inspect the Dockerfile.dev to see what is being installed in the development container.
 
-In the Terminal type:
+In the Terminal run:
 
 ```
 docker build -f Dockerfile.dev -t gcp-series-dev-container .
@@ -73,7 +73,7 @@ docker run -it -p 8080:8080  gcp-series-dev-container bash
 
 If you mapped folders of container to host you can open the folder in VSCode directly from your host machine as a workspace.
 Keep the terminal open after running the container, you are now inside the container.
-If you type ls you may see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
+If you run ls you may see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
 
 If you kept it only inside the container, you can open the folder in VSCode using the "Remote - Containers" extension:
 
@@ -85,7 +85,7 @@ In the menu select the folder you want to open, within the container, e.g., /wor
 		
 In the new window, go to: Terminal -> New Terminal
 You are now inside the container terminal. You can see the current folder is /workspace in the line prompt.
-However if you type ls, you may see only Dockerfile, and requirements.txt, as they were copied in the process of building
+However if you run ls, you may see only Dockerfile, and requirements.txt, as they were copied in the process of building
 the container. However the demo application folders are missing. It is because the container does not have access to your 
 host files.
 		
@@ -101,7 +101,7 @@ docker cp DemoApp-02 <container_id>:/workspace/DemoApp-02
 ```
 
 Replace <container_id> with the actual container ID or name. You can find it by running `docker ps` in your host terminal.
-After copying the folders, go back to the container terminal and type ls again. You should now see the DemoApp-01 and DemoApp-02 folders.
+After copying the folders, go back to the container terminal and run ls again. You should now see the DemoApp-01 and DemoApp-02 folders.
 		
 #### 2. Use Git inside the container to clone the repository again:
 			
@@ -115,7 +115,7 @@ Now cd into the gcp-series folder for the cloned files:
 cd gcp-series
 ```
 			
-Show the folder structure to verify the files are there:
+Check the folder structure to verify the files are there:
 
 ```
 ls
