@@ -82,7 +82,7 @@ Ensure your CLI is authenticated and pointing to the right project.
     gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=$GCP_BILLING_ACCOUNT_ID
     ```
 
-### 3.3 Fixing IAM Permissions (Crucial Step)
+### 3.3 Fixing IAM Permissions
 
 Sometimes the default compute service account lacks the necessary permissions to deploy successfully. We must explicitly grant it the Editor role.
 
