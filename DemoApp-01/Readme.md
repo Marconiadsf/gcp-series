@@ -72,7 +72,6 @@ cp env_variables_model.sh env_vars.sh
     Open `env_vars.sh` and fill in your specific Google Cloud details. You typically only need to change:
     * `GCP_PROJECT_ID`
     * `GCP_PROJECT_REGION`
-    * `GCP_BILLING_ACCOUNT_ID`
 
 4.  **Load the variables:**
     Source the file to load these variables into your current terminal session:
