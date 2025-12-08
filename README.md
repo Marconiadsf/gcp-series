@@ -26,7 +26,7 @@ Use VSCode to start a new terminal:
 If you have Git installed, you can clone this repository using Git:
 	
 ```bash
-git clone https://github.com/Marconiadsf/gcpseries.git
+git clone https://github.com/Marconiadsf/gcp-series.git
 ```
 
 If you don't want to install Git, you can also download the repository as a ZIP file and extract it.
