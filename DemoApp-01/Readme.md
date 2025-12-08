@@ -138,5 +138,3 @@ gcloud projects delete $GCP_PROJECT_ID
 ## References
 
 * **Google Cloud Quickstart:** [Build and deploy a Python (Gradio) web app to Cloud Run](https://docs.cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-python-gradio-service)
-
-> **Note:** The `gcloud run deploy --source` command respects `.gcloudignore` (or `.gitignore` if the former is missing) to avoid uploading unnecessary files.
