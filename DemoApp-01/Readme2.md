@@ -38,21 +38,25 @@ You should see output indicating the server is running at `http://127.0.0.1:8080
 
 ### 3.1 Setting Up Environment Variables
 
-To keep your configuration secure and reusable, we use a shell script to set environment variables.
+Move back to the DemoApp-01 folder with:
+   ```bash
+   cd ..
+   ```
 
 1.  **Create your config file:**
     Copy the template to a new file named `env_vars.sh` (this file is git-ignored to prevent leaking secrets).
+    
     ```bash
     cp env_variables_model.sh env_vars.sh
     ```
 
-2.  **Edit the file:**
+3.  **Edit the file:**
     Open `env_vars.sh` and fill in your specific Google Cloud details. You typically only need to change:
     * `GCP_PROJECT_ID`
     * `GCP_PROJECT_REGION`
     * `GCP_BILLING_ACCOUNT_ID`
 
-3.  **Load the variables:**
+4.  **Load the variables:**
     Source the file to load these variables into your current terminal session:
     ```bash
     source env_vars.sh
