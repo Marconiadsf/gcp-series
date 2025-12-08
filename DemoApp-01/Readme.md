@@ -104,6 +104,7 @@ gcloud config set project $GCP_PROJECT_ID
 > gcloud beta billing accounts list
 > ```
 
+Link the account:
 ```bash
 gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=<your-billing-id>
 ```
