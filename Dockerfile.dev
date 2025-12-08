@@ -1,0 +1,19 @@
+FROM python:3.10-slim
+
+# Instalar dependências do sistema
+RUN apt-get update && apt-get install -y git curl unzip
+
+# Instalar Google Cloud SDK dentro do container
+RUN curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts \
+    && ln -s /root/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud
+
+WORKDIR /workspace
+
+# Copiar dependências
+COPY requirements.txt .
+COPY Dockerfile .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Mantém o container rodando
+CMD ["sleep", "infinity"]
