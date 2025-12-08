@@ -25,7 +25,7 @@ Use VSCode to start a new terminal:
 	
 If you have Git installed, you can clone this repository using Git:
 	
-```
+```bash
 git clone https://github.com/Marconiadsf/gcpseries.git
 ```
 
@@ -33,13 +33,13 @@ If you don't want to install Git, you can also download the repository as a ZIP 
 Unzip the file into the gcp-series folder you created above.
 Now cd into the gcp-series folder for the unzipped files:
 
-```
+```bash
 cd gcp-series
 ````
 
 Check the folder structure to verify the files are there:
 
-```
+```bash
 ls
 ```
 
@@ -50,7 +50,7 @@ Inspect the Dockerfile.dev to see what is being installed in the development con
 
 In the Terminal run:
 
-```
+```bash
 docker build -f Dockerfile.dev -t gcp-series-dev-container .
 ```
 
@@ -60,14 +60,14 @@ After the build is complete, you can run the container.
 
 For local testing and development, you can run the container interactively, mapping the current folder, and opening port 8080:
 
-```
+```bash
 docker run -it -p 8080:8080 -v ${PWD}:/workspace gcp-series-dev-container bash
 ```
 	
 If you don't want to map the folders and keep it only inside the container (but you need Dockerfile.dev and requirements.txt 
 beforehand), you can just run:
 
-```
+```bash
 docker run -it -p 8080:8080  gcp-series-dev-container bash	
 ```
 
@@ -95,7 +95,7 @@ You can:
 Open a new terminal in your host machine (not inside the container) and navigate to the gcp-series folder you created before.
 Run the command:
 
-```
+```bash
 docker cp DemoApp-01 <container_id>:/workspace/DemoApp-01
 docker cp DemoApp-02 <container_id>:/workspace/DemoApp-02
 ```
@@ -105,19 +105,19 @@ After copying the folders, go back to the container terminal and run ls again. Y
 		
 #### 2. Use Git inside the container to clone the repository again:
 			
-```
+```bash
 git clone https://github.com/Marconiadsf/gcp-series.git
 ```
 			
 Now cd into the gcp-series folder for the cloned files:
 
-```
+```bash
 cd gcp-series
 ```
 			
 Check the folder structure to verify the files are there:
 
-```
+```bash
 ls
 ```
 
