@@ -14,7 +14,7 @@ Start by installing Docker, VSCode, Git (optional) in your local development env
 Start VSCode, install the "Remote - Containers" extension.
 Use VSCode to start a new terminal:
 - Go: Terminal-> New Terminal
-	- It may start in something like: C:\Users\YourName\
+	- It may open in a path like: C:\Users\YourName\
 	
 - Create a new folder for this repository and navigate into it:
 	- Windows/Linux:
@@ -30,11 +30,11 @@ If you have git installed, you can clone this repository using git:
 	```
 If you dont want to install git, you can also download the repository as a ZIP file and extract it.
 Unzip the file into the gcp-series folder you created above.
-Now cd into the gcp-series folder for the unziped files:
+Now cd into the gcp-series folder for the unzipped files:
 	```
 	cd gcp-series
 	````
-Show the folder structure to verify the files are there:
+Check the folder structure to verify the files are there:
 	```ls
 	```
 You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
@@ -48,7 +48,7 @@ In the Terminal type:
 	```
 	docker build -f Dockerfile.dev -t gcp-series-dev-container .
 	```
-This will build the development container image with  python:3.10-slim, git, gcloud SDK, and toher tools, copy
+This will build the development container image with  python:3.10-slim, git, gcloud SDK, and other tools, copy
 the requirements.txt file, and install the required python packages.
 
 After the build is complete, you can run the container.
@@ -69,16 +69,16 @@ beforehand), you can just run:
 	```
 
 If you mapped folders of container to host you can open the folder in VSCode directly from your host machine as a workspace.
-Keep the terminal open after runing the container, you are now inside the container.
+Keep the terminal open after running the container, you are now inside the container.
 If you type ls you may see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
 
-If you keeped it only inside the container, you can open the folder in VSCode using the "Remote - Containers" extension:
+If you kepet it only inside the container, you can open the folder in VSCode using the "Remote - Containers" extension:
 
-Click in "Remmote-Containers" icon in the left sidebar
+Click in "Remote-Containers" icon in the left sidebar
 Search for the just created container and click "Attach in New Window"
 The new windows may have /workspace as the current workspace.
 You can also set it manually by going to File -> Open Folder and selecting /workspace
-In the menu select the folder you want to open, whithing the container, e.g., /workspace.
+In the menu select the folder you want to open, within the container, e.g., /workspace.
 		
 In the new window, go to: Terminal -> New Terminal
 You are now inside the container terminal. You can see the current folder is /workspace in the line prompt.
@@ -116,5 +116,5 @@ Show the folder structure to verify the files are there:
 			```
 You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
 	
-Either way, you can now navigate to each demo application folder and follow the specific instructions in their README.mk files.
+Either way, you can now navigate to each demo application folder and follow the specific instructions in their README.mkd files.
 
