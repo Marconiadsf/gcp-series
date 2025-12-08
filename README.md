@@ -13,7 +13,7 @@ Start by installing Docker, VSCode, Git (optional) in your local development env
 
 Start VSCode, install the "Remote - Containers" extension.
 Use VSCode to start a new terminal:
-- Go: Terminal-> New Terminal
+- Go to: Terminal → New Terminal
 	- It may open in a path like: C:\Users\YourName\
 	
 - Create a new folder for this repository and navigate into it:
@@ -48,8 +48,8 @@ In the Terminal type:
 	```
 	docker build -f Dockerfile.dev -t gcp-series-dev-container .
 	```
-This will build the development container image with  python:3.10-slim, git, gcloud SDK, and other tools, copy
-the requirements.txt file, and install the required python packages.
+This will build the development container image with Python 3.10-slim, Git, gcloud SDK, and other tools, copy
+the requirements.txt file, and install the required Python packages.
 
 After the build is complete, you can run the container.
 
