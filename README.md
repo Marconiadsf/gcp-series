@@ -32,43 +32,44 @@ git clone https://github.com/Marconiadsf/gcpseries.git
 If you don't want to install Git, you can also download the repository as a ZIP file and extract it.
 Unzip the file into the gcp-series folder you created above.
 Now cd into the gcp-series folder for the unzipped files:
-	```
-	cd gcp-series
-	````
+
+```
+cd gcp-series
+````
+
 Check the folder structure to verify the files are there:
-	```
-	ls
-	```
+
+```
+ls
+```
+
 You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
-
 Dockerfile.dev is used to create a development container with all the necessary tools installed.
-
 Make sure Docker is running on your machine.
 Inspect the Dockerfile.dev to see what is being installed in the development container.
 
 In the Terminal type:
-	```
-	docker build -f Dockerfile.dev -t gcp-series-dev-container .
-	```
+
+```
+docker build -f Dockerfile.dev -t gcp-series-dev-container .
+```
+
 This will build the development container image with Python 3.10-slim, Git, gcloud SDK, and other tools, copy
 the requirements.txt file, and install the required Python packages.
-
 After the build is complete, you can run the container.
 
 For local testing and development, you can run the container interactively, mapping the current folder, and opening port 8080:
 
-	```
-	docker run -it -p 8080:8080 -v ${PWD}:/workspace gcp-series-dev-container bash
-
-	```
+```
+docker run -it -p 8080:8080 -v ${PWD}:/workspace gcp-series-dev-container bash
+```
 	
 If you don't want to map the folders and keep it only inside the container (but you need Dockerfile.dev and requirements.txt 
 beforehand), you can just run:
 
-	```
-	docker run -it -p 8080:8080  gcp-series-dev-container bash
-	
-	```
+```
+docker run -it -p 8080:8080  gcp-series-dev-container bash	
+```
 
 If you mapped folders of container to host you can open the folder in VSCode directly from your host machine as a workspace.
 Keep the terminal open after running the container, you are now inside the container.
@@ -93,30 +94,33 @@ You can:
 #### 1. Copy the files from your host to the container using docker cp command:
 Open a new terminal in your host machine (not inside the container) and navigate to the gcp-series folder you created before.
 Run the command:
-			```
-			docker cp DemoApp-01 <container_id>:/workspace/DemoApp-01
-			docker cp DemoApp-02 <container_id>:/workspace/DemoApp-02
-			```
+
+```
+docker cp DemoApp-01 <container_id>:/workspace/DemoApp-01
+docker cp DemoApp-02 <container_id>:/workspace/DemoApp-02
+```
+
 Replace <container_id> with the actual container ID or name. You can find it by running `docker ps` in your host terminal.
 After copying the folders, go back to the container terminal and type ls again. You should now see the DemoApp-01 and DemoApp-02 folders.
 		
 #### 2. Use Git inside the container to clone the repository again:
 			
-			```
-			git clone https://github.com/Marconiadsf/gcp-series.git
-			```
+```
+git clone https://github.com/Marconiadsf/gcp-series.git
+```
 			
 Now cd into the gcp-series folder for the cloned files:
 
-			```
-			cd gcp-series
-			```
+```
+cd gcp-series
+```
 			
 Show the folder structure to verify the files are there:
-			```
-			ls
-			```
+
+```
+ls
+```
+
 You should see the folders DemoApp-01, DemoApp-02, the files: Dockerfile.dev, Dockerfile, and requirements.txt
-	
 Either way, you can now navigate to each demo application folder and follow the specific instructions in their README.md files.
 
