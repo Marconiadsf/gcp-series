@@ -25,8 +25,7 @@ Use VSCode to start a new terminal:
 2.  Create a working directory and navigate into it:
 
     ```bash
-    mkdir gcp-series
-    cd gcp-series
+    mkdir gcp-series && cd gcp-series
     ```
 
 ### 2. Getting the Sources & Building
@@ -38,8 +37,7 @@ You can choose between two workflows. **Option B** is generally easier for quick
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Marconiadsf/gcp-series.git
-    cd gcp-series
+    git clone https://github.com/Marconiadsf/gcp-series.git && cd gcp-series
     ```
 2.  **Verify files:** Run `ls` (or `dir` on Windows) to ensure `Dockerfile.dev` is present.
 3.  **Build the container:**
