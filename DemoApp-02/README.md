@@ -1,4 +1,4 @@
-# DemoApp-02 : Local deployment example - Automating Google Cloud Run deployment.
+# DemoApp-02: Local deployment example - Automating Google Cloud Run deployment.
 This is a simple demo application to illustrate local deployment to Google Cloud Run using the `gcloud` command-line tool.
 
 
@@ -70,7 +70,11 @@ cp env_variables_model.sh env_vars.sh
 		
 This time we packed all the deployment workflow into a script.
 Make sure you are in the DemoApp-02 directory.
-List your billing information and keep it in hand, when the script asks for it.
+> List your billing information and keep it on hand, as the script will ask for it.
+> You can list with the command:
+> ```bash
+> gcloud beta billing projects describe PROJECT_ID
+> ```
 
 1.  **Make the script executable:**
     ```bash
