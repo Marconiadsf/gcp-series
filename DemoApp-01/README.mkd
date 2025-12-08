@@ -4,8 +4,8 @@ This is a simple demo application to illustrate local deployment to Google Cloud
 
 ## Prerequisites
 
-	** Follow README.md in the root directory for setting up your environment: This will give you the necessary enviroinment
-	to run the demo applications, including installing Docker, VSCode, git (optional), and setting up the development container.
+	**Follow README.md in the root directory for setting up your environment: This will give you the necessary enviroinment
+	to run the demo applications, including installing Docker, VSCode, git (optional), and setting up the development container.**
 
 ## Running the Demo Application
 
