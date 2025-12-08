@@ -4,12 +4,23 @@ This repository contains a series of experiments and demo applications to explor
 
 ## Description of Demo Applications
 
-* **DemoApp-01:** Local deployment example to Google Cloud Run using the `gcloud` command-line tool.
-* **DemoApp-02:** Local deployment example to Google Cloud Run using scripts to automate the process.
+* **[DemoApp-01](./DemoApp-01):** Local deployment example to Google Cloud Run using the `gcloud` command-line tool.
+* **[DemoApp-02](./DemoApp-02):** Local deployment example to Google Cloud Run using scripts to automate the process.
 
 ## How to Use This Repository
 
-Each demo application is contained in its own folder (e.g., DemoApp-01, DemoApp-02).
+Each demo application is contained in its own folder (e.g., `DemoApp-01`, `DemoApp-02`).
+
+## Table of Contents
+* [1. Prerequisites](#1-prerequisites)
+* [2. Getting the Sources & Building](#2-getting-the-sources--building)
+    * [Option A: The "Mapped" Workflow (Standard)](#option-a-the-mapped-workflow-standard)
+    * [Option B: The "Isolated" Workflow (No Git Required)](#option-b-the-isolated-workflow-no-git-required-locally)
+* [3. Run the Container](#3-run-the-container)
+    * [3.1. With Mapped Folders](#31-with-mapped-folders-matches-option-a)
+    * [3.2. No Mapped Folders](#32-no-mapped-folders-matches-option-b)
+
+---
 
 ### 1. Prerequisites
 
@@ -22,11 +33,9 @@ Before starting, ensure your local environment has the following installed:
 #### Setup your terminal
 Use VSCode to start a new terminal:
 1.  Go to: **Terminal** → **New Terminal**
-2.  Create a working directory and navigate into it:
+2.  Ensure you are in the folder where you want to store your project (e.g., `~/Projects` or `C:\Users\Name\Projects`).
 
-    ```bash
-    mkdir gcp-series && cd gcp-series
-    ```
+---
 
 ### 2. Getting the Sources & Building
 
@@ -37,7 +46,8 @@ You can choose between two workflows. **Option B** is generally easier for quick
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Marconiadsf/gcp-series.git && cd gcp-series
+    git clone [https://github.com/Marconiadsf/gcp-series.git](https://github.com/Marconiadsf/gcp-series.git)
+    cd gcp-series
     ```
 2.  **Verify files:** Run `ls` (or `dir` on Windows) to ensure `Dockerfile.dev` is present.
 3.  **Build the container:**
@@ -50,9 +60,14 @@ You can choose between two workflows. **Option B** is generally easier for quick
 #### Option B: The "Isolated" Workflow (No Git Required Locally)
 *Best for: Quick tests without installing Git on your host.*
 
-1.  **Download the Dockerfile:** Download **only** the [Dockerfile-isolated.dev](Dockerfile-isolated.dev) from the repo and place it in your `gcp-series` folder.
-2.  **Inspect the file:** Check the file content to understand what tools are being installed.
-3.  **Build the container:**
+1.  **Create directory:**
+    ```bash
+    mkdir gcp-series
+    cd gcp-series
+    ```
+2.  **Download the Dockerfile:** Download **only** the [Dockerfile-isolated.dev](Dockerfile-isolated.dev) from the repo and place it in your `gcp-series` folder.
+3.  **Inspect the file:** Check the file content to understand what tools are being installed.
+4.  **Build the container:**
     ```bash
     docker build -f Dockerfile-isolated.dev -t gcp-series-dev-container .
     ```
