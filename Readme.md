@@ -46,8 +46,7 @@ You can choose between two workflows. **Option B** is generally easier for quick
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Marconiadsf/gcp-series.git
-    cd gcp-series
+    git clone https://github.com/Marconiadsf/gcp-series.git && cd gcp-series
     ```
 2.  **Verify files:** Run `ls` (or `dir` on Windows) to ensure `Dockerfile.dev` is present.
 3.  **Build the container:**
@@ -62,8 +61,7 @@ You can choose between two workflows. **Option B** is generally easier for quick
 
 1.  **Create directory:**
     ```bash
-    mkdir gcp-series
-    cd gcp-series
+    mkdir gcp-series && cd gcp-series
     ```
 2.  **Download the Dockerfile:** Download **only** the [Dockerfile-isolated.dev](Dockerfile-isolated.dev) from the repo and place it in your `gcp-series` folder.
 3.  **Inspect the file:** Check the file content to understand what tools are being installed.
