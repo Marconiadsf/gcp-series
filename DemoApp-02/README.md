@@ -101,7 +101,7 @@ in your web browser to access the deployed application.
 
 Congratulations! You have successfully deployed the DemoApp-01 application to Google Cloud Run.
 
-#### 3.6 Cleaning Up
+#### 3.3 Cleaning Up
 
 Before jumping into the next DemoApp you may want to to delete all the resources created in this DemoApp-02:
 
