@@ -1,35 +1,35 @@
+#!/bin/bash
+
 ## ------------------------------------------------- ##
 ## How to edit and use this file: 
 ## 1. Make a copy of this file naming it env_vars.sh
-## 2. Remove the leading '#' characters 
-##    from the variable definitions below
-## 3. Edit the variables with your own values
-## 4. Source your terminal or scripts: 
+##    cp env_variables_model.sh env_vars.sh
+## 2. Edit the variables below with your own values
+## 3. Source it in your terminal: 
 ##      source ./env_vars.sh
 ## ------------------------------------------------- ##
 
 
 ## ------------------------------------------------- ##
-## Edit the following variables with your own values:
+## REQUIRED: Edit with your own values
 ## ------------------------------------------------- ##
 
-#GCP_PROJECT_ID="your-unique-gcp-project-id"
-#GCP_PROJECT_REGION="your-preferred-region" 
+export GCP_PROJECT_ID="your-unique-gcp-project-id"
+export GCP_PROJECT_REGION="us-central1"
 
 
 ## ------------------------------------------------- ##
-## You can keep the variables bellow
-## as is.
+## OPTIONAL: You can keep the variables below as is
 ## ------------------------------------------------- ##
 
-#GCP_PROJECT_NAME="DemoApp-01"
-#GCP_PROJECT_PREFIX="demoapp-01"
-#TAG="v1" 
+export GCP_PROJECT_NAME="DemoApp-01"
+export GCP_PROJECT_PREFIX="demoapp-01"
+export TAG="v1" 
 
 ## ------------------------------------------------- ##
-## Don`t touch. It`s and art!		
+## AUTOMATED: Don't touch. It's an art!
 ## ------------------------------------------------- ##
 
-#GCP_PROJECT_REPOSITORY="$GCP_PROJECT_PREFIX-repo" 
-#GCP_IMAGE_NAME="$GCP_PROJECT_PREFIX-image" 
-#GCP_IMAGE="$GCP_PROJECT_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$GCP_PROJECT_REPOSITORY/$GCP_IMAGE_NAME:$TAG" 
+export GCP_PROJECT_REPOSITORY="${GCP_PROJECT_PREFIX}-repo" 
+export GCP_IMAGE_NAME="${GCP_PROJECT_PREFIX}-image" 
+export GCP_IMAGE="${GCP_PROJECT_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GCP_PROJECT_REPOSITORY}/${GCP_IMAGE_NAME}:${TAG}"
