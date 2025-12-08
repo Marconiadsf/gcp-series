@@ -72,11 +72,15 @@ This time we packed all the deployment workflow into a script.
 Make sure you are in the DemoApp-02 directory.
 List your billing information and keep it in hand, when the script asks for it.
 
-Then run:
+1.  **Make the script executable:**
+    ```bash
+    chmod +x deploy_to_cloud.sh
+    ```
 
-```bash
-./deploy_to_cloud.sh
-```
+2.  **Run the script:**
+    ```bash
+    ./deploy_to_cloud.sh
+    ```
 
 The script will source the env_vars.sh file to get the necessary environment variables and then proceed to create the GCP project,
 enable required APIs, ask for billing account and finally deploy the application to Cloud Run.
