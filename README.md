@@ -29,7 +29,7 @@ Use VSCode to start a new terminal:
 		cd gcp-series
 		```
 ### 2. Getting the sources
-	You can clone this repository (2.1) and follow instrutions to set it up or just download a docker file of your preference (2.2) and run it (easier). 
+You can clone this repository (2.1) and follow instrutions to set it up or just download a docker file of your preference (2.2) and run it (easier). 
 
 #### 2.1 Git clone way...
 If you have Git installed, you can clone this repository using Git:
