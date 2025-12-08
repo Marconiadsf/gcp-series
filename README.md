@@ -18,7 +18,7 @@ Use VSCode to start a new terminal:
 	
 - Create a new folder for this repository and navigate into it:
 	- Windows/Linux:
-```
+```bash
 mkdir gcp-series
 cd gcp-series
 ``` 
