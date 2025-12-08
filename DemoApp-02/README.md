@@ -1,6 +1,5 @@
-# DemoApp-02: Local deployment example - Automating Google Cloud Run deployment.
-This is a simple demo application to illustrate local deployment to Google Cloud Run using the `gcloud` command-line tool.
-
+# DemoApp-02: Automated Deployment with Shell Scripts
+This demo illustrates how to streamline local deployment to Google Cloud Run by wrapping `gcloud` commands into reusable Bash scripts.
 
 ## Prerequisites
 
