@@ -1,17 +1,17 @@
 FROM python:3.10-slim
 
-# Instalar dependências do sistema
-RUN apt-get update && apt-get install -y git curl unzip
-
-# Instalar Google Cloud SDK dentro do container
-RUN curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts \
-    && ln -s /root/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud
+# Install system dependencies and Google Cloud SDK
+RUN apt-get update && apt-get install -y git curl unzip \
+    && curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-460.0.0-linux-x86_64.tar.gz \
+       | tar -xz -C /opt \
+    && ln -s /opt/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
 
 RUN git clone https://github.com/Marconiadsf/gcp-series.git
 
-CD gcp-series
+WORKDIR /workspace/gcp-series
 
 RUN pip install --no-cache-dir -r requirements.txt
 
