@@ -20,7 +20,7 @@ for arg in "$@"; do
             export GCP_PROJECT_TAG="${arg#*=}"
             HAS_TAG_FLAG=true
             ;;
-        deploy|deploy-container|clean|fullclean)
+        deploy| deploy-fix-buildpacks | deploy-container|clean|fullclean)
             # These commands MODIFY cloud resources, so they NEED the tag/context
             REQUIRES_CONTEXT=true
             ;;
@@ -70,21 +70,39 @@ run_safe() {
     fi
 }
 
+# Function to pause script execution to allow IAM changes to propagate
+wait_for_propagation() {
+    local seconds=$1
+    echo -e "${YELLOW}⏳ Waiting ${seconds}s for IAM permissions to propagate...${NC}"
+    
+    # Simple countdown loop
+    while [ $seconds -gt 0 ]; do
+       echo -ne "   Time remaining: $seconds\033[0K\r" # \r overwrites the line
+       sleep 1
+       : $((seconds--))
+    done
+    echo -e "   ✅ Ready to proceed!          "
+}
+
 show_help() {
     echo -e "${BLUE}Usage: $0 [-tag=xxx] {login|deploy|deploy-container|clean|fullclean}${NC}"
-    echo -e "  ${YELLOW}-tag=xxx${NC}         : (Optional) Set the project tag for this run"
-    echo -e "  ${YELLOW}login${NC}            : Authenticate with Google Cloud"
-    echo -e "  ${YELLOW}logout${NC}           : Revoke credentials"
-    echo -e "  ${YELLOW}deploy${NC}           : Simple source deployment (Automated Buildpacks)"
-    echo -e "  ${YELLOW}deploy-container${NC} : Manual container build & deploy (Robust)"
-    echo -e "  ${YELLOW}clean${NC}            : Delete GCloud service"
-    echo -e "  ${YELLOW}fullclean${NC}        : Delete GCloud service and project"
+    echo -e "  ${YELLOW}-tag=xxx${NC}              : (Optional) Set the project tag for this run"
+    echo -e "  ${YELLOW}login${NC}                 : Authenticate with Google Cloud"
+    echo -e "  ${YELLOW}logout${NC}                : Revoke credentials"
+    echo -e "  ${YELLOW}deploy${NC}                : Simple source deployment (Automated Buildpacks)"
+    echo -e "  ${YELLOW}deploy-fix-buildpacks${NC} : Simple source deployment (Manual Buildpack - use if you are getting 403 Error)"
+    echo -e "  ${YELLOW}deploy-container${NC}      : Manual container build & deploy (Robust, but require Dockerfile)"
+    echo -e "  ${YELLOW}clean${NC}                 : Delete GCloud service"
+    echo -e "  ${YELLOW}fullclean${NC}             : Delete GCloud service and project"
 }
 
 # --- 5. Core Logic Functions ---
 
 setup_project_and_billing() {
+    local IS_FRESH_PROJECT=false # 1. Default to false
+
     log_info "Verifying project status for TAG: $GCP_PROJECT_TAG..."
+    log_info "Project ID: $GCP_PROJECT_ID"
 
     if gcloud projects describe "$GCP_PROJECT_ID" &>/dev/null; then
         echo -e "${YELLOW}⚠️  Project $GCP_PROJECT_ID already exists. Using it.${NC}"
@@ -92,8 +110,11 @@ setup_project_and_billing() {
         log_info "Project does not exist. Creating..."
         run_safe "Project creation failed." "Project created." \
                  gcloud projects create "$GCP_PROJECT_ID" --name="$GCP_PROJECT_NAME"
+        
+        IS_FRESH_PROJECT=true # 2. Mark as fresh since we just created it
     fi
 
+    # ... (Rest of the standard setup logic: set project, billing) ...
     run_safe "Failed to set project." "Project set." gcloud config set project $GCP_PROJECT_ID
 
     if [ -z "$GCP_BILLING_ACCOUNT_ID" ]; then
@@ -111,6 +132,11 @@ setup_project_and_billing() {
     log_info "Enabling APIs..."
     run_safe "Failed to enable APIs." "APIs enabled." \
              gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
+
+    # 3. Only wait if the project is actually new
+    if [ "$IS_FRESH_PROJECT" = true ]; then
+        wait_for_propagation 45
+    fi
 }
 
 cleanup_resources() {
@@ -132,7 +158,7 @@ cleanup_resources() {
     echo -e "${GREEN}✅ Cleanup finished.${NC}"
 }
 
-# --- 6. Deployment Strategies ---
+# --- 5.1 Deployment Strategies ---
 
 deploy_simple() {
     setup_project_and_billing
@@ -140,6 +166,32 @@ deploy_simple() {
     log_info "🚀 Deploying from source (Simple Mode)..."
     run_safe "Deployment failed." "Deployment successful!" \
              gcloud run deploy $GCP_PROJECT_PREFIX --source . --region=$GCP_PROJECT_REGION --platform=managed --allow-unauthenticated
+    cd ..
+}
+
+deploy_fix_buildpacks() {
+    setup_project_and_billing
+    cd src || exit
+    
+    # Define the image name manually
+    IMAGE_TAG="gcr.io/$GCP_PROJECT_ID/$GCP_PROJECT_PREFIX"
+    
+    log_info "🚀 Deploying using Buildpacks (Bypassing 403 check)..."
+
+    # Step 1: EXPLICITLY build using Buildpacks
+    # This replaces 'gcloud run deploy --source' which was failing
+    log_info "🔨 Building image with Buildpacks..."
+    run_safe "Build failed." "Build successful." \
+             gcloud builds submit --pack image=$IMAGE_TAG .
+
+    # Step 2: Deploy the image we just built
+    log_info "🚀 Deploying image..."
+    run_safe "Deployment failed." "Deployment successful!" \
+             gcloud run deploy $GCP_PROJECT_PREFIX \
+             --image $IMAGE_TAG \
+             --region=$GCP_PROJECT_REGION \
+             --platform=managed \
+             --allow-unauthenticated
     cd ..
 }
 
@@ -155,7 +207,7 @@ deploy_container() {
     cd ..
 }
 
-# --- 7. Main Execution Block ---
+# --- 6. Main Execution Block ---
 
 # If absolutely no arguments are provided, force "help"
 if [ $# -eq 0 ]; then
@@ -192,6 +244,11 @@ for cmd in "$@"; do
             ACTION_PERFORMED=true
             echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             deploy_simple
+            ;;
+        deploy-fix-buildpacks)
+            ACTION_PERFORMED=true
+            echo -e "${BLUE}➡️  Executing: $cmd${NC}"
+            deploy_fix_buildpacks
             ;;
         deploy-container)
             ACTION_PERFORMED=true
