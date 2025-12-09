@@ -1,21 +1,45 @@
 #!/bin/bash
 
-# --- 1. Define Variables & Colors ---
+# --- 1. Define Colors ---
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-# Check for env_vars.sh immediately
+# --- 2. Pre-Scan for Configuration Flags ---
+# We loop through all arguments just to find overrides like -tag=xxx
+for arg in "$@"; do
+    case "$arg" in
+        -tag=*)
+            # Extract the value after the '='
+            export GCP_PROJECT_TAG="${arg#*=}"
+            ;;
+    esac
+done
+
+# --- 3. Validate Pre-Requisites ---
+# This runs BEFORE env_vars.sh is sourced
+if [ -z "$GCP_PROJECT_TAG" ]; then
+    echo -e "${RED}❌ Error: GCP_PROJECT_TAG is not defined!${NC}"
+    echo -e "This variable is required to load the correct environment context."
+    echo ""
+    echo -e "Please define it using one of these methods:"
+    echo -e "  ${YELLOW}1. Command Line:${NC}  ./ops -tag=myproject deploy"
+    echo -e "  ${YELLOW}2. Export:${NC}        export GCP_PROJECT_TAG=myproject"
+    exit 1
+fi
+
+# --- 4. Load Environment ---
 if [ -f ./env_vars.sh ]; then
+    # Pass the tag to the script if needed, or just rely on the exported var
     source ./env_vars.sh
 else
     echo -e "${RED}❌ Error: env_vars.sh file not found!${NC}"
     exit 1
 fi
 
-# --- 2. Define Helper Functions ---
+# --- 5. Define Helper Functions ---
 
 log_info() {
     echo -e "${BLUE}ℹ️  $1${NC}"
@@ -27,44 +51,37 @@ run_safe() {
     shift 2
     "$@"
     if [ $? -ne 0 ]; then
-    echo -e "${RED}❌ $error_msg${NC}"
-    exit 1
+        echo -e "${RED}❌ $error_msg${NC}"
+        exit 1
     else
         echo -e "${GREEN}✅ $success_msg${NC}"
     fi
 }
 
-# --- 3. Core Logic Functions ---
+# --- 6. Core Logic Functions ---
 
 setup_project_and_billing() {
-    log_info "Verifying project status..."
+    log_info "Verifying project status for TAG: $GCP_PROJECT_TAG..."
 
-    # Check if project exists first
     if gcloud projects describe "$GCP_PROJECT_ID" &>/dev/null; then
         echo -e "${YELLOW}⚠️  Project $GCP_PROJECT_ID already exists. Using it.${NC}"
     else
         log_info "Project does not exist. Creating..."
-        # If create fails here (e.g. invalid name), run_safe will exit the script
-        run_safe "Project creation failed. Check if name is valid." \
-                 "Project created successfully." \
+        run_safe "Project creation failed." "Project created." \
                  gcloud projects create "$GCP_PROJECT_ID" --name="$GCP_PROJECT_NAME"
     fi
 
-    # Set the project context
-    run_safe "Failed to set project context." "Project context set." gcloud config set project $GCP_PROJECT_ID
+    run_safe "Failed to set project." "Project set." gcloud config set project $GCP_PROJECT_ID
 
-    # Billing Setup
     if [ -z "$GCP_BILLING_ACCOUNT_ID" ]; then
-        log_info "Listing your billing accounts..."
+        log_info "Listing billing accounts..."
         gcloud beta billing accounts list
         read -p "Enter your billing account ID: " GCP_BILLING_ACCOUNT_ID
     fi
 
     log_info "Linking billing account..."
-    run_safe "Failed to link billing." \
-             "Billing linked successfully." \
+    run_safe "Failed to link billing." "Billing linked." \
              gcloud beta billing projects link $GCP_PROJECT_ID --billing-account=$GCP_BILLING_ACCOUNT_ID
-    
     
     unset GCP_BILLING_ACCOUNT_ID
 
@@ -88,92 +105,73 @@ cleanup_resources() {
     echo -e "${GREEN}✅ Cleanup finished.${NC}"
 }
 
-# --- 4. Deployment Strategies ---
+# --- 7. Deployment Strategies ---
 
-# STRATEGY A: Simple Deploy (Source -> Cloud Run)
-# This relies on Google's automated buildpacks. 
 deploy_simple() {
     setup_project_and_billing
-    
     cd src || exit
     log_info "🚀 Deploying from source (Simple Mode)..."
-    
-    # Note: This is the method that was causing the 'experiments.yaml' 403 error previously
-    run_safe "Deployment failed. Try 'deploy-container' mode if this persists." \
-             "Deployment successful!" \
-             gcloud run deploy $GCP_PROJECT_PREFIX \
-             --source . \
-             --region=$GCP_PROJECT_REGION \
-             --platform=managed \
-             --allow-unauthenticated
+    run_safe "Deployment failed." "Deployment successful!" \
+             gcloud run deploy $GCP_PROJECT_PREFIX --source . --region=$GCP_PROJECT_REGION --platform=managed --allow-unauthenticated
     cd ..
 }
 
-# STRATEGY B: Container Deploy (Build -> Push -> Deploy)
-# This is the robust fix that separates build and deploy steps.
 deploy_container() {
     setup_project_and_billing
-
     cd src || exit
     IMAGE_TAG="gcr.io/$GCP_PROJECT_ID/$GCP_PROJECT_PREFIX"
-
     log_info "🔨 Building container image: $IMAGE_TAG..."
     run_safe "Build failed." "Build successful." gcloud builds submit --tag $IMAGE_TAG .
-
     log_info "🚀 Deploying container image..."
     run_safe "Deployment failed." "Deployment successful!" \
-             gcloud run deploy $GCP_PROJECT_PREFIX \
-             --image $IMAGE_TAG \
-             --region=$GCP_PROJECT_REGION \
-             --platform=managed \
-             --allow-unauthenticated
+             gcloud run deploy $GCP_PROJECT_PREFIX --image $IMAGE_TAG --region=$GCP_PROJECT_REGION --platform=managed --allow-unauthenticated
     cd ..
 }
 
-# --- 5. Main Execution Block ---
+# --- 8. Main Execution Block ---
 
-# If no arguments are provided, default to help
 if [ $# -eq 0 ]; then
     set -- "help"
 fi
 
-# Loop through ALL arguments
 for cmd in "$@"; do
-    echo -e "${BLUE}➡️  Executing command: $cmd${NC}"
-    
     case "$cmd" in
+        -tag=*)
+            # We already handled this in Step 2. Just skip it here.
+            continue 
+            ;;
         clean|fullclean)
+            echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             cleanup_resources "$cmd"
             ;;
         login)
+            echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             log_info "Logging into gcloud..."
             run_safe "Authentication failed." "Authentication successful." gcloud auth login
             ;;
         logout)
+            echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             log_info "Revoking GCloud credentials..."
             gcloud auth revoke --all || true
             ;;
         deploy)
+            echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             deploy_simple
             ;;
         deploy-container)
+            echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             deploy_container
             ;;
         help)
-        echo -e "${BLUE}Usage: $0 {login|deploy|deploy-container|clean|fullclean}${NC}"
-        echo -e "  ${YELLOW}login${NC}            : Authenticate with Google Cloud"
-        echo -e "  ${YELLOW}logout${NC}           : Remove credentials"
-        echo -e "  ${YELLOW}deploy${NC}           : Simple source deployment (Automated Buildpacks)"
-        echo -e "  ${YELLOW}deploy-container${NC} : Manual container build & deploy (More robust)"
-        echo -e "  ${YELLOW}clean${NC}            : Delete GCloud service"
-        echo -e "  ${YELLOW}fullclean${NC}        : Delete GCloud service and project"
-        
-        ;;
-    *)
-        echo -e "${RED}❌ Error: Unrecognized command: '$cmd'${NC}"
+            echo -e "${BLUE}Usage: $0 [-tag=xxx] {login|deploy|deploy-container|clean|fullclean}${NC}"
+            echo -e "  ${YELLOW}-tag=xxx${NC}         : (Optional) Set the project tag for this run"
+            echo -e "  ${YELLOW}login${NC}            : Authenticate with Google Cloud"
+            echo -e "  ${YELLOW}deploy-container${NC} : Build & deploy (Robust)"
+            ;;
+        *)
+            echo -e "${RED}❌ Error: Unrecognized command: '$cmd'${NC}"
             exit 1
             ;;
     esac
-    
-    echo "" # Add a spacer line between commands
+    echo ""
 done
