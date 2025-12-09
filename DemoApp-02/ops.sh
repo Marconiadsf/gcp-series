@@ -58,6 +58,16 @@ run_safe() {
     fi
 }
 
+show_help() {
+    echo -e "${BLUE}Usage: $0 [-tag=xxx] {login|deploy|deploy-container|clean|fullclean}${NC}"
+    echo -e "  ${YELLOW}-tag=xxx${NC}         : (Optional) Set the project tag for this run"
+    echo -e "  ${YELLOW}login${NC}            : Authenticate with Google Cloud"
+    echo -e "  ${YELLOW}logout${NC}           : Revoke credentials"
+    echo -e "  ${YELLOW}deploy${NC}           : Simple source deployment (Automated Buildpacks)"
+    echo -e "  ${YELLOW}deploy-container${NC} : Manual container build & deploy (Robust)"
+    echo -e "  ${YELLOW}clean${NC}            : Delete GCloud service"
+    echo -e "  ${YELLOW}fullclean${NC}        : Delete GCloud service and project"
+}
 # --- 6. Core Logic Functions ---
 
 setup_project_and_billing() {
@@ -130,43 +140,52 @@ deploy_container() {
 
 # --- 8. Main Execution Block ---
 
+# --- 8. Main Execution Block ---
+
+# If absolutely no arguments are provided, force "help"
 if [ $# -eq 0 ]; then
     set -- "help"
 fi
 
+ACTION_PERFORMED=false
+
 for cmd in "$@"; do
     case "$cmd" in
         -tag=*)
-            # We already handled this in Step 2. Just skip it here.
+            # Configuration flag, already handled in Pre-Scan. 
+            # We skip it here, but we DO NOT mark it as an action.
             continue 
             ;;
         clean|fullclean)
+            ACTION_PERFORMED=true
             echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             cleanup_resources "$cmd"
             ;;
         login)
+            ACTION_PERFORMED=true
             echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             log_info "Logging into gcloud..."
             run_safe "Authentication failed." "Authentication successful." gcloud auth login
             ;;
         logout)
+            ACTION_PERFORMED=true
             echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             log_info "Revoking GCloud credentials..."
             gcloud auth revoke --all || true
             ;;
         deploy)
+            ACTION_PERFORMED=true
             echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             deploy_simple
             ;;
         deploy-container)
+            ACTION_PERFORMED=true
             echo -e "${BLUE}➡️  Executing: $cmd${NC}"
             deploy_container
             ;;
         help)
-            echo -e "${BLUE}Usage: $0 [-tag=xxx] {login|deploy|deploy-container|clean|fullclean}${NC}"
-            echo -e "  ${YELLOW}-tag=xxx${NC}         : (Optional) Set the project tag for this run"
-            echo -e "  ${YELLOW}login${NC}            : Authenticate with Google Cloud"
-            echo -e "  ${YELLOW}deploy-container${NC} : Build & deploy (Robust)"
+            ACTION_PERFORMED=true
+            show_help
             ;;
         *)
             echo -e "${RED}❌ Error: Unrecognized command: '$cmd'${NC}"
@@ -175,3 +194,9 @@ for cmd in "$@"; do
     esac
     echo ""
 done
+
+# FINAL CHECK: If the loop finished but we never performed an action
+# (e.g., the user ran "./ops.sh -tag=123" but forgot a command)
+if [ "$ACTION_PERFORMED" = false ]; then
+    show_help
+fi
