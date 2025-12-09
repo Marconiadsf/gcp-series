@@ -9,7 +9,7 @@ NC='\033[0m'
 
 # Check for env_vars.sh immediately
 if [ -f ./env_vars.sh ]; then
-    source ./env_vars.sh
+    source ./env_vars.sh
 else
     echo -e "${RED}❌ Error: env_vars.sh file not found!${NC}"
     exit 1
@@ -26,9 +26,9 @@ run_safe() {
     local success_msg="$2"
     shift 2
     "$@"
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}❌ $error_msg${NC}"
-        exit 1
+    if [ $? -ne 0 ]; then
+    echo -e "${RED}❌ $error_msg${NC}"
+    exit 1
     else
         echo -e "${GREEN}✅ $success_msg${NC}"
     fi
