@@ -7,39 +7,51 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-# --- 2. Pre-Scan for Configuration Flags ---
-# We loop through all arguments just to find overrides like -tag=xxx
+# --- 2. Pre-Scan: Detect Tag & Intent ---
+# We scan arguments to see if we need to enforce the Project Tag check.
+
+REQUIRES_CONTEXT=false  # Default: We assume we don't need the tag
+HAS_TAG_FLAG=false
+
 for arg in "$@"; do
     case "$arg" in
         -tag=*)
             # Extract the value after the '='
             export GCP_PROJECT_TAG="${arg#*=}"
+            HAS_TAG_FLAG=true
             ;;
+        deploy|deploy-container|clean|fullclean)
+            # These commands MODIFY cloud resources, so they NEED the tag/context
+            REQUIRES_CONTEXT=true
+            ;;
+        # login, logout, and help DO NOT trigger REQUIRES_CONTEXT
     esac
 done
 
-# --- 3. Validate Pre-Requisites ---
-# This runs BEFORE env_vars.sh is sourced
-if [ -z "$GCP_PROJECT_TAG" ]; then
-    echo -e "${RED}❌ Error: GCP_PROJECT_TAG is not defined!${NC}"
-    echo -e "This variable is required to load the correct environment context."
-    echo ""
-    echo -e "Please define it using one of these methods:"
-    echo -e "  ${YELLOW}1. Command Line:${NC}  ./ops -tag=myproject deploy"
-    echo -e "  ${YELLOW}2. Export:${NC}        export GCP_PROJECT_TAG=myproject"
-    exit 1
+# --- 3. Validate Context (Only if needed) ---
+# This only runs if the user requested a command that needs the tag (like 'deploy')
+
+if [ "$REQUIRES_CONTEXT" = true ]; then
+    if [ -z "$GCP_PROJECT_TAG" ]; then
+        echo -e "${RED}❌ Error: GCP_PROJECT_TAG is not defined!${NC}"
+        echo -e "The command you selected requires a project context."
+        echo ""
+        echo -e "Please define it using one of these methods:"
+        echo -e "  ${YELLOW}1. Command Line:${NC}  ./ops.sh -tag=myproject deploy"
+        echo -e "  ${YELLOW}2. Export:${NC}        export GCP_PROJECT_TAG=myproject"
+        exit 1
+    fi
+
+    # Only load environment vars if we are actually deploying/cleaning
+    if [ -f ./env_vars.sh ]; then
+        source ./env_vars.sh
+    else
+        echo -e "${RED}❌ Error: env_vars.sh file not found!${NC}"
+        exit 1
+    fi
 fi
 
-# --- 4. Load Environment ---
-if [ -f ./env_vars.sh ]; then
-    # Pass the tag to the script if needed, or just rely on the exported var
-    source ./env_vars.sh
-else
-    echo -e "${RED}❌ Error: env_vars.sh file not found!${NC}"
-    exit 1
-fi
-
-# --- 5. Define Helper Functions ---
+# --- 4. Define Helper Functions ---
 
 log_info() {
     echo -e "${BLUE}ℹ️  $1${NC}"
@@ -68,7 +80,8 @@ show_help() {
     echo -e "  ${YELLOW}clean${NC}            : Delete GCloud service"
     echo -e "  ${YELLOW}fullclean${NC}        : Delete GCloud service and project"
 }
-# --- 6. Core Logic Functions ---
+
+# --- 5. Core Logic Functions ---
 
 setup_project_and_billing() {
     log_info "Verifying project status for TAG: $GCP_PROJECT_TAG..."
@@ -115,7 +128,7 @@ cleanup_resources() {
     echo -e "${GREEN}✅ Cleanup finished.${NC}"
 }
 
-# --- 7. Deployment Strategies ---
+# --- 6. Deployment Strategies ---
 
 deploy_simple() {
     setup_project_and_billing
@@ -138,9 +151,7 @@ deploy_container() {
     cd ..
 }
 
-# --- 8. Main Execution Block ---
-
-# --- 8. Main Execution Block ---
+# --- 7. Main Execution Block ---
 
 # If absolutely no arguments are provided, force "help"
 if [ $# -eq 0 ]; then
