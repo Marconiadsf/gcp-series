@@ -118,7 +118,11 @@ cleanup_resources() {
     echo -e "${YELLOW}🧹 Cleaning up resources ($clean_mode)...${NC}"
 
     log_info "Deleting Cloud Run service..." 
-    gcloud run services delete $GCP_PROJECT_PREFIX --region=$GCP_PROJECT_REGION --quiet || true
+    # FIX: Added --project=$GCP_PROJECT_ID to force the correct target
+    gcloud run services delete $GCP_PROJECT_PREFIX \
+        --region=$GCP_PROJECT_REGION \
+        --project=$GCP_PROJECT_ID \
+        --quiet || true
     
     if [ "$clean_mode" == "fullclean" ]; then
         log_info "Deleting GCP Project..."
