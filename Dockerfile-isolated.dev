@@ -9,14 +9,11 @@ RUN curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts \
 
 WORKDIR /workspace
 
-# Copiar dependências
-COPY requirements.txt .
-
-
-RUN pip install --no-cache-dir -r requirements.txt
-
 RUN git clone https://github.com/Marconiadsf/gcp-series.git
 
+CD gcp-series
+
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Mantém o container rodando
 CMD ["sleep", "infinity"]
