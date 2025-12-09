@@ -14,7 +14,7 @@
 ## REQUIRED: Edit with your own values
 ## ------------------------------------------------- ##
 
-export GCP_PROJECT_ID="your-unique-gcp-project-id${TAG}"
+export GCP_PROJECT_ID="your-unique-gcp-project-id${GCP_PROJECT_TAG}"
 export GCP_PROJECT_REGION="us-central1"
 
 
