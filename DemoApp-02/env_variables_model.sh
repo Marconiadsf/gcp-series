@@ -14,7 +14,7 @@
 ## REQUIRED: Edit with your own values
 ## ------------------------------------------------- ##
 
-export GCP_PROJECT_ID="your-unique-gcp-project-id"
+export GCP_PROJECT_ID="your-unique-gcp-project-id${TAG}"
 export GCP_PROJECT_REGION="us-central1"
 
 
@@ -24,7 +24,6 @@ export GCP_PROJECT_REGION="us-central1"
 
 export GCP_PROJECT_NAME="DemoApp-02"
 export GCP_PROJECT_PREFIX="demoapp-02"
-export TAG="v1" 
 
 ## ------------------------------------------------- ##
 ## AUTOMATED: Don't touch. It's an art!
