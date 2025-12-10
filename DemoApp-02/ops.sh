@@ -135,7 +135,7 @@ setup_project_and_billing() {
 
     # 3. Only wait if the project is actually new
     if [ "$IS_FRESH_PROJECT" = true ]; then
-        wait_for_propagation 45
+        wait_for_propagation 90
     fi
 }
 
